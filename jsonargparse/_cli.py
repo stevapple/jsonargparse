@@ -75,7 +75,7 @@ def CLI(
         unexpected = [c for c in components if not (inspect.isclass(c) or callable(c))]
     elif isinstance(components, dict):
         ns = dict_to_namespace(components)
-        unexpected = [c for k, c in ns.items() if not k.endswith("._help") and not (inspect.isclass(c) or callable(c))]
+        unexpected = [c for k, c in ns.items() if k != "_help" and not k.endswith("._help") and not (inspect.isclass(c) or callable(c))]
     else:
         unexpected = [c for c in [components] if not (inspect.isclass(c) or callable(c))]
     if unexpected:
