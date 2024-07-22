@@ -1,7 +1,9 @@
 """Simple creation of command line interfaces."""
+from __future__ import annotations
 
 import inspect
-from typing import Any, Callable, Dict, List, Optional, Type, Union
+from typing import Any, Callable, Dict, List, Optional, Type, Union, NotRequired
+from typing_extensions import TypedDict
 
 from ._actions import ActionConfigFile, _ActionPrintConfig, remove_actions
 from ._core import ArgumentParser
@@ -14,7 +16,9 @@ __all__ = ["CLI"]
 
 
 ComponentType = Union[Callable, Type]
-DictComponentsType = Dict[str, Union[ComponentType, "DictComponentsType"]]
+class DictComponentsType(TypedDict, closed=True):
+    _help: NotRequired[str]
+    __extra_items__: Union[ComponentType, "DictComponentsType"]
 ComponentsType = Optional[Union[ComponentType, List[ComponentType], DictComponentsType]]
 
 

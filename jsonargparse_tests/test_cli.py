@@ -7,7 +7,7 @@ from contextlib import redirect_stderr, redirect_stdout, suppress
 from dataclasses import asdict, dataclass
 from io import StringIO
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Any, Callable, Dict, Optional
 from unittest.mock import patch
 
 import pytest
@@ -426,7 +426,7 @@ def test_named_components_deep():
             },
         },
     }
-    kw = {"as_positional": False}
+    kw: Dict[str, Any] = {"as_positional": False}
     out = get_cli_stdout(components, args=["--help"], **kw)
     assert " {lv1_a,lv1_b} ..." in out
     assert "Description of lv1_a" in out
